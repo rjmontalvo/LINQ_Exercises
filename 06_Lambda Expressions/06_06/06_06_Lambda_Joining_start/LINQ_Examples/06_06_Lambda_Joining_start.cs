@@ -93,14 +93,34 @@ namespace LINQ_Examples
                     distname = matches.Select(dist => dist.Name)
                 };
             */
-
-
+            Console.WriteLine("=====Lambda Join=====");
+            var matchupquery = customers
+                .Join(distributors, 
+                c => c.State, 
+                d => d.State,
+                (c,d) => new { custName = c.Last, distName = d.Name});
 
             foreach (var cd in matchupquery)
             {
-                Console.WriteLine("{0}, {1}", cd.custName, cd.distName);
+                Console.WriteLine($"{cd.custName}, {cd.distName}");
             }
 
+            Console.WriteLine("\n\n=====Lambda GroupJoin=====");
+            var groupJoin = customers
+                .GroupJoin(distributors,
+                c => c.State,
+                d => d.State,
+                (c, d) => new { custName = c.Last, distName = d.Select(dist => dist.Name) });
+
+            foreach (var cd in groupJoin)
+            {
+                Console.WriteLine($"Customer: {cd.custName}");
+                foreach (var dist in cd.distName)
+                {
+                    Console.WriteLine($"  {dist}");
+                }
+
+            }
             Console.ReadKey();
 
         }

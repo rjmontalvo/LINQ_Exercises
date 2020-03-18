@@ -85,11 +85,11 @@ namespace LINQ_Examples
                                         311.50, 227.50, 42101.50};
 
         static string[] Purchases = {  "Panel 625", "Panel 200",
-                                    "12V Li",
-                                    "Bulb 23W", "Panel 625",
                                     "Panel 200", "Panel 180",
+                                    "Bulb 23W", "Panel 625",
                                     "Bulb 23W", "12V Li", "Panel 180",
                                     "Panel 625",
+                                    "12V Li",
                                     "12V Li", "AA NiMH",
                                     "Bulb 23W", "Panel 180",
                                     "Panel 180", "Panel 200",
@@ -101,17 +101,41 @@ namespace LINQ_Examples
 
         static void Main(string[] args)
         {
-            IEnumerable<double> yenQuery = ExchangedPrices
-                .Where((n, index) => index % 3 == 0);
-
             IEnumerable<string> prodQuery = Purchases
                 .Distinct();
 
-            foreach (string p in prodQuery)
+            Console.WriteLine("=====Using Take=====");
+            IEnumerable<string> displayQuery = prodQuery.Take(3);
+
+            foreach (var p in displayQuery)
             {
-                Console.WriteLine("{0}", p);
+                Console.WriteLine(p);
             }
-            
+
+            Console.WriteLine("\n\n=====Using Skip=====");
+            IEnumerable<string> displayQuery2 = prodQuery.Skip(3).Take(3);
+
+            foreach (var p in displayQuery2)
+            {
+                Console.WriteLine(p);
+            }
+
+            Console.WriteLine("\n\n=====Using TakeWhile=====");
+            IEnumerable<string> takeWhile = prodQuery.TakeWhile(p => p.Contains("Panel"));
+                        
+            foreach (var p in takeWhile)
+            {
+                Console.WriteLine(p);
+            }
+
+            Console.WriteLine("\n\n=====Using SkipWhile=====");
+            IEnumerable<string> skipWhile = prodQuery.SkipWhile(p => p.Contains("Panel"));
+
+            foreach (var p in skipWhile)
+            {
+                Console.WriteLine(p);
+            }
+
             Console.ReadKey();
         }
     }

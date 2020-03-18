@@ -70,48 +70,33 @@ namespace LINQ_Examples
         };
 
         static double[] exchange = { 0.89, 0.65, 120.29 };
-
-        static double[] ExchangedPrices = {827.70, 604.50, 111869.70,
-                                        1869.00, 1,365.00, 252609.00,
-                                        521.36, 380.77, 70465.88,
-                                        455.68, 332.80, 61588.48,
-                                        2018.34, 1474.07, 272793.66,
-                                        920.26, 672.10, 124379.86,
-                                        1873.45, 1368.25, 253210.45,
-                                        149.34, 109.07, 20184.66,
-                                        455.68, 332.80, 61588.48,
-                                        525.28, 383.63, 70995.16,
-                                        9.08, 6.63, 1226.96,
-                                        311.50, 227.50, 42101.50};
-
-        static string[] Purchases = {  "Panel 625", "Panel 200",
-                                    "Panel 200", "Panel 180",
-                                    "Bulb 23W", "Panel 625",
-                                    "Bulb 23W", "12V Li", "Panel 180",
-                                    "Panel 625",
-                                    "12V Li",
-                                    "12V Li", "AA NiMH",
-                                    "Bulb 23W", "Panel 180",
-                                    "Panel 180", "Panel 200",
-                                    "Panel 625", "Bulb 23W", "Bulb 9W",
-                                    "Bulb 23W", "Bulb 9W",
-                                    "Panel 200"
-                                 };
         #endregion
 
         static void Main(string[] args)
         {
-            IEnumerable<string> prodQuery = Purchases
-                .Distinct();
+            /*
+            IEnumerable<IGrouping<string, Customer>> groupQuery =
+                from c in customers
+                group c by c.State;
+                
+            IEnumerable<IGrouping<bool, Customer>> groupPriceQuery =
+                from c in customers
+                group c by c.Price >= 1000;
+            */
 
-            IEnumerable<string> displayQuery = prodQuery
-                .SkipWhile(p => p.Contains("Panel"));
+            //IEnumerable<IGrouping<string, Customer>> groupQuery = customers.GroupBy(c => c.State);
 
-            foreach (string p in displayQuery)
+            var groupQuery = customers.GroupBy(c => c.Price >= 1000);
+
+            foreach (var stateGroup in groupQuery)
             {
-                Console.WriteLine("{0}", p);
+                Console.WriteLine("{0}", stateGroup.Key);
+                foreach (Customer c in stateGroup)
+                {
+                    Console.WriteLine("  {0} {1}: {2:C}", c.First, c.Last, c.Price);
+                }
             }
-            
+
             Console.ReadKey();
         }
     }
