@@ -91,9 +91,25 @@ namespace LINQ_Examples
                 select p;
             */
 
+            IEnumerable<double> exchangeQuery = customers.SelectMany(c => exchange, (c,e) => c.Price *e);
 
+            IEnumerable<string> purchaseQuery = customers.SelectMany(c => c.Purchases);
+
+            foreach (double p in exchangeQuery)
+            {
+                Console.WriteLine("{0:N2}", p);
+            }
 
             Console.ReadKey();
+            Console.WriteLine("\n\n");
+
+            foreach (string p in purchaseQuery)
+            {
+                Console.WriteLine("{0:N2}", p);
+            }
+
+            Console.ReadKey();
+
         }
     }
 }
