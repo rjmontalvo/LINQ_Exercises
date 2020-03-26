@@ -80,19 +80,32 @@ namespace LINQ_Examples
                 .Select(c => { c.Price *= 0.89; return c; })
                 .Where(c => c.Price > 500)
                 .OrderBy(c => c.Last);
-            */            
+            */
 
             var topEuroQuery =
                 from c in customers
-                select new { euro = c.Price * 0.89, cust = c }
-                into inEuros
-                where inEuros.euro > 500
-                orderby inEuros.cust.Last
-                select new { inEuros.cust.Last, inEuros.euro };
+                let euro = c.Price * 0.89
+                where euro > 500
+                orderby c.Last
+                select new { Last = c.Last, Price = euro };
 
-            foreach (var c in topEuroQuery)
+            var updateQuery =
+                from c in customers
+                let euros = c.Price * .89
+                from p in c.Purchases
+                let newProdName = "KE_" + p
+                select new
+                {
+                    c.Last,
+                    c.First,
+                    c.State,
+                    Price = euros,
+                    Purchase = newProdName
+                };
+
+            foreach (var c in updateQuery)
             {
-                Console.WriteLine("{0}: {1:N2}", c.Last, c.euro);
+                Console.WriteLine("{0} spent {1:N2} Euros on {2}", c.Last, c.Price, c.Purchase);
             }
 
             Console.ReadKey();

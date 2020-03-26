@@ -74,40 +74,35 @@ namespace LINQ_Examples
 
         static void Main(string[] args)
         {
-            //Same query but using lambda syntax
-            /*
-            var topEuroQueryLambda = customers
-                .Select(c => { c.Price *= 0.89; return c; })
-                .Where(c => c.Price > 500)
-                .OrderBy(c => c.Last);
-            */            
+            //last names of customers from oregon
+            //ordered by amount purchased
 
-            var topEuroQuery =
-                from c in customers
-                let euro = c.Price * 0.89
-                where euro > 500
-                orderby c.Last
-                select new { Last = c.Last, Price = euro };
+            var stateQuery = customers.Where(c => c.State == "OR");
+            var priceQuery = stateQuery.OrderBy(c => c.Price);
+            var nameQuery = priceQuery.Select(c => c.Last);
 
-            var updateQuery =
-                from c in customers
-                let euro = c.Price * 0.89
-                from p in c.Purchases
-                let newProdName = "KE " + p
-                select new
-                {
-                    Last = c.Last,
-                    First = c.First,
-                    State = c.State,
-                    Price = euro,
-                    Purchase = newProdName
-                };
+            //Same as all three quesries above
+            var chainQuery = customers
+                .Where(c => c.State == "OR")
+                .OrderBy(c => c.Price)
+                .Select(c => c.Last);
 
-            foreach (var c in updateQuery)
+            foreach (var name in chainQuery)
             {
-                Console.WriteLine("{0} spent {1:N2} Euros on {2}", c.Last, c.Price, c.Purchase);
+                Console.WriteLine(name);
             }
 
+            //Comprehension query
+            var report =
+                from c in customers
+                where c.State == "OR"
+                orderby c.Price
+                select $"{c.First} {c.Last} {c.Price}";
+
+            foreach (var item in report)
+            {
+                Console.WriteLine(item);
+            }
             Console.ReadKey();
         }
     }

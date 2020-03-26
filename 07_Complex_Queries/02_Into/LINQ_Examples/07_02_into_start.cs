@@ -85,18 +85,25 @@ namespace LINQ_Examples
 
             //===================================================//
 
+            //Comprehension Into Query
             var topEuroQuery =
                 from c in customers
                 select new { euro = c.Price * 0.89, cust = c }
                 into inEuros
-                where inEuros.euro > 500
+                where inEuros.euro> 500
                 orderby inEuros.cust.Last
                 select new { inEuros.cust.Last, inEuros.euro };
-                
 
-            foreach (var c in topEuroQuery)
+
+            //Lambda query for Comprehension Into Query
+            var topEuro2 = customers
+                .Select(c => { c.Price *= .89; return c; })
+                .Where(c => c.Price > 500)
+                .OrderBy(c => c.Last);
+
+            foreach (var c in topEuro2)
             {
-                Console.WriteLine("{0}: {1:N2}", c.Last, c.euro);
+                Console.WriteLine("{0}: {1:N2}", c.Last, c.Price);
             }
 
             Console.ReadKey();
