@@ -45,9 +45,9 @@ Learning and Executing LINQ queries from https://www.linkedin.com/learning/linq-
 <details><summary>Objectives</summary>
 <p>
 
-- [ ] Chaining
-- [ ] Use the "into" keyword
-- [ ] Use the "let" keyword
+- [x] Chaining
+- [x] Use the "into" keyword
+- [x] Use the "let" keyword
 
 </p>
 </details>
