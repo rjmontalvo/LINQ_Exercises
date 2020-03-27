@@ -56,9 +56,9 @@ Learning and Executing LINQ queries from https://www.linkedin.com/learning/linq-
 <details><summary>Objectives</summary>
 <p>
 
-- [ ] Database Setup
-- [ ] Database Query
-- [ ] Database Updates
+- [x] Database Setup
+- [x] Database Query
+- [x] Database Updates
 
 </p>
 </details>
@@ -67,8 +67,8 @@ Learning and Executing LINQ queries from https://www.linkedin.com/learning/linq-
 <details><summary>Objectives</summary>
 <p>
 
-- [ ] Tree Creation
-- [ ] Tree Queries
+- [x] Tree Creation
+- [x] Tree Queries
 
 </p>
 </details>
@@ -77,8 +77,8 @@ Learning and Executing LINQ queries from https://www.linkedin.com/learning/linq-
 <details><summary>Objectives</summary>
 <p>
 
-- [ ] Use OfType to conver to IEnumerable
-- [ ] Sequences, Elements, and Scalars
+- [x] Use OfType to convert to IEnumerable
+- [x] Sequences, Elements, and Scalars
 
 </p>
 </details>
@@ -87,8 +87,8 @@ Learning and Executing LINQ queries from https://www.linkedin.com/learning/linq-
 <details><summary>Objectives</summary>
 <p>
 
-- [ ] Memory Allocation
-- [ ] Best Practices
+- [x] Memory Allocation
+- [x] Best Practices
 
 </p>
 </details>
